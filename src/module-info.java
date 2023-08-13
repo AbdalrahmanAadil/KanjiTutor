@@ -4,6 +4,6 @@
 /**
  * 
  */
-module Kanji_Tutor {
+module KanjiTutor {
 	requires java.desktop;
 }
