@@ -1,20 +1,22 @@
 package app;
 
+import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MainMenu extends Window {
 
-	private JButton masteredKanjiButton;
-	private JButton kanjiTargetsButton;
-	private JButton learnButton;
-	private JButton takeQuizButton;
+	private JPanel mainMenuOptionsPanel;
+	private JButton learnWindow;
+	private JButton window_2_Button;
+	private JButton window_3_Button;
+	private JButton window_4_Button;
 
 	public MainMenu(StateStack stack, JFrame frame) {
-		super(stack, frame);
+		super(stack, frame, new BorderLayout());
 		
 		createComponents();
-		initialize();
 		addComponents();
 		initComponents();
 		
@@ -22,44 +24,75 @@ public class MainMenu extends Window {
 	
 	@Override
 	protected void createComponents() {
-		masteredKanjiButton = new JButton("Mastered Kanji");
-		kanjiTargetsButton = new JButton("Add Kanji");
-		learnButton = new JButton("Learn");
-		takeQuizButton = new JButton("Take a Quiz");
+		
+		mainMenuOptionsPanel = new JPanel();
+		
+		learnWindow = new JButton("Learn by JLPT Level");
+		window_2_Button = new JButton("Window 2");
+		window_3_Button = new JButton("Window 3");
+		window_4_Button = new JButton("Window 4");
+		
 	}
 
 	@Override
-	protected void initialize() {}
-
-	@Override
 	protected void addComponents() {
-		frame.add(masteredKanjiButton);
-		frame.add(kanjiTargetsButton);
-		frame.add(learnButton);
-		frame.add(takeQuizButton);
+		
+		mainMenuOptionsPanel.add(learnWindow);
+		mainMenuOptionsPanel.add(window_2_Button);
+		mainMenuOptionsPanel.add(window_3_Button);
+		mainMenuOptionsPanel.add(window_4_Button);
+		
+		frame.add(mainMenuOptionsPanel);
 	}
 
 	@Override
 	protected void initComponents() {
 		addActionListeners();
 		
-		// Position buttons
+		int buttonWidth = 200;
+		int buttonHeight = 50;
 		
-		masteredKanjiButton.setBounds(0, 0, 150, 50);
-		kanjiTargetsButton.setBounds(0 + 150, 0, 150, 50);
-		learnButton.setBounds(0 + 0, 50, 150, 50);
-		takeQuizButton.setBounds(0 + 150, 50, 150, 50);
+		// Position buttons
+		mainMenuOptionsPanel.setBounds(frame.getWidth() / 2 - buttonWidth / 2, 100, frame.getWidth(), frame.getHeight());
+		//menuOptionsPanel.setLayout(new GridLayout());
+		
+		learnWindow.setBounds(0, 0, buttonWidth, buttonHeight);
+		window_2_Button.setBounds(0, buttonHeight, buttonWidth, buttonHeight);
+		window_3_Button.setBounds(0, buttonHeight * 2, buttonWidth, buttonHeight);
+		window_4_Button.setBounds(0, buttonHeight * 3, buttonWidth, buttonHeight);
 		
 	}
 
 	@Override
 	protected void addActionListeners() {
-		takeQuizButton.addActionListener(
+		learnWindow.addActionListener(
 				e -> {
 					stack.pop();
-					stack.push(new Quiz(stack, frame));
+					stack.push(new LearnOptionsWindow(stack, frame));
 				}
 		);
+		
+		window_2_Button.addActionListener(
+				e -> {
+					stack.pop();
+					stack.push(new Window2(stack, frame));
+				}
+		);
+		
+		window_3_Button.addActionListener(
+				e -> {
+					stack.pop();
+					stack.push(new Window3(stack, frame));
+				}
+		);
+		
+		window_4_Button.addActionListener(
+				e -> {
+					stack.pop();
+					stack.push(new Window4(stack, frame));
+				}
+		);
+		
 	}
 	
 }

@@ -2,7 +2,6 @@ package app;
 
 //import java.awt.BorderLayout;
 import java.awt.Color;
-
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Quiz extends Window {
+public class Window3 extends Window {
+	
+	
 	
 	private ArrayList<ImageIcon> cards = new ArrayList<>();
 	private int currentCard;
@@ -24,14 +25,13 @@ public class Quiz extends Window {
 	private JPanel cardPanel;
 	private JPanel controlPanel;
 	
-	public Quiz(StateStack stack, JFrame frame) {
-		
-		super(stack, frame);
+	public Window3(StateStack stack, JFrame frame) {
+		// 3rd argument is layout
+		super(stack, frame, null);
 		
 		currentCard = 0;
 		
 		createComponents();
-		initialize();
 		loadCards();
 		addComponents();
 		initComponents();
@@ -50,13 +50,9 @@ public class Quiz extends Window {
 		goToLast = new JButton("Last");
 	}
 	
-	@Override
-	protected void initialize() {
-	}
-	
 	protected void loadCards() {
 		for(int i = 1; i < 32; ++i) {
-			cards.add(new ImageIcon("kanji/" + i + ".png"));
+			cards.add(new ImageIcon("kanji/N5/" + i + ".png"));
 		}
 	}
 	
