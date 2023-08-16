@@ -4,6 +4,10 @@ import java.awt.LayoutManager;
 
 import javax.swing.JFrame;
 
+enum Level {
+	N1, N2, N3, N4, N5
+}
+
 public abstract class Window {
 	
 	StateStack stack;
