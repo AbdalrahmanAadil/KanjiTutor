@@ -32,14 +32,14 @@ public class Learn extends Window {
 	private JPanel controlPanel;
 	
 	private Level level;
-	private String category;
+	private String directory;
 	
-	public Learn(StateStack stack, JFrame frame, Level level, String category) {
+	public Learn(StateStack stack, JFrame frame, Level level, String directory) {
 		// 3rd argument is layout
 		super(stack, frame, null);
 		
 		this.level = level;
-		this.category = category;
+		this.directory = directory;
 		
 		currentCard = 0;
 		
@@ -68,8 +68,9 @@ public class Learn extends Window {
 		String levelFolder = getLevel(level);
 		//String categoryStr = getCategory(category);
 		
-		String dir = "kanji/" + levelFolder + "/" + category;
+		String dir = directory;
 		this.numOfCards = new File(dir).list().length;
+		//new File("").list
 		for(int i = 0; i < numOfCards; ++i) {
 			cards.add(new ImageIcon(dir + "/" + i + ".png"));
 		}
