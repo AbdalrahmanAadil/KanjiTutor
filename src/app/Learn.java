@@ -32,12 +32,14 @@ public class Learn extends Window {
 	private JPanel controlPanel;
 	
 	private Level level;
+	private String category;
 	
-	public Learn(StateStack stack, JFrame frame, Level level) {
+	public Learn(StateStack stack, JFrame frame, Level level, String category) {
 		// 3rd argument is layout
 		super(stack, frame, null);
 		
-		this.level= level;
+		this.level = level;
+		this.category = category;
 		
 		currentCard = 0;
 		
@@ -58,18 +60,39 @@ public class Learn extends Window {
 		prevButton = new JButton("Prev");
 		goToFirst = new JButton("First");
 		goToLast = new JButton("Last");
-		backButton = new JButton("Back to JLPT Levels");
+		backButton = new JButton("Back");
 	}
 	
 	protected void loadCards() {
 		
 		String levelFolder = getLevel(level);
-		this.numOfCards = new File("kanji/" + levelFolder).list().length;
+		//String categoryStr = getCategory(category);
+		
+		String dir = "kanji/" + levelFolder + "/" + category;
+		this.numOfCards = new File(dir).list().length;
 		for(int i = 0; i < numOfCards; ++i) {
-			cards.add(new ImageIcon("kanji/" + levelFolder + "/" + i + ".png"));
+			cards.add(new ImageIcon(dir + "/" + i + ".png"));
 		}
 	}
-	
+
+	public static String getCategory(Category cat) {
+		switch (cat) {
+			case VERBS: return "verbs";
+			case ADJ: return "adj";
+			case ANIMALS: return "animals";
+			case HUMAN_BODY: return "human_body";
+			case CITY: return "city";
+			case EVERYDAY: return "everyday";
+			case NATURE: return "nature";
+			case NUMBERS: return "numbers";
+			case PEOPLE: return "people";
+			case PREPOSITIONS: return "prepositions";
+			case TIME: return "time";
+		default:
+			throw new IllegalArgumentException("Unexpected category: " + cat.name());
+		}
+	}
+
 	private String getLevel(Level level) {
 		switch (level) {
 		
@@ -144,7 +167,7 @@ public class Learn extends Window {
 		backButton.addActionListener(
 				e -> {
 					stack.pop();
-					stack.push(new LearnByLJPTLevel(stack, frame));
+					stack.push(new PickMaterial(stack, frame));
 				}
 		);
 	}

@@ -1,66 +1,72 @@
 package app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainMenu extends Window {
 
-	private JPanel mainMenuOptionsPanel;
+	private JPanel panel;
 	private JButton learnWindow;
-	//private JButton window_2_Button;
-	//private JButton window_3_Button;
-	//private JButton window_4_Button;
+	private JButton window_2_Button;
+	private JButton window_3_Button;
+	private JButton window_4_Button;
 
 	public MainMenu(StateStack stack, JFrame frame) {
 		super(stack, frame, new BorderLayout());
 		
-		createComponents();
-		addComponents();
-		initComponents();
+		frame.setLayout(null);
 		
+		createComponents();
+		initComponents();
+		addComponents();
+		
+		
+		frame.setVisible(true);
 	}
 	
 	@Override
 	protected void createComponents() {
 		
-		mainMenuOptionsPanel = new JPanel();
+		panel = new JPanel();
 		
 		learnWindow = new JButton("Learn by JLPT Level");
-		//window_2_Button = new JButton("Window 2");
-		//window_3_Button = new JButton("Window 3");
-		//window_4_Button = new JButton("Window 4");
+		
+		window_2_Button = new JButton("Window 2");
+		window_3_Button = new JButton("Window 3");
+		window_4_Button = new JButton("Window 4");
 		
 	}
 
 	@Override
 	protected void addComponents() {
 		
-		mainMenuOptionsPanel.add(learnWindow);
-		//mainMenuOptionsPanel.add(window_2_Button);
-		//mainMenuOptionsPanel.add(window_3_Button);
-		//mainMenuOptionsPanel.add(window_4_Button);
+		panel.add(learnWindow);
+		panel.add(window_2_Button);
+		panel.add(window_3_Button);
+		panel.add(window_4_Button);
 		
-		frame.add(mainMenuOptionsPanel);
+		frame.add(panel);
 	}
 
 	@Override
 	protected void initComponents() {
 		addActionListeners();
 		
-		int buttonWidth = 200;
-		int buttonHeight = 50;
+		int offsetX = 250;
+		int panelHeight = 400;
 		
-		// Position buttons
-		mainMenuOptionsPanel.setBounds(frame.getWidth() / 2 - buttonWidth / 2, 100, frame.getWidth(), frame.getHeight());
-		//menuOptionsPanel.setLayout(new GridLayout());
+		panel.setBounds(offsetX, 80, 200, panelHeight);
+		panel.setLayout(new GridLayout(6, 2, 10, 10));
 		
-		learnWindow.setBounds(0, 0, buttonWidth, buttonHeight);
-		//window_2_Button.setBounds(0, buttonHeight, buttonWidth, buttonHeight);
-		//window_3_Button.setBounds(0, buttonHeight * 2, buttonWidth, buttonHeight);
-		//window_4_Button.setBounds(0, buttonHeight * 2, buttonWidth, buttonHeight);
-		
+		//panel.setBackground(new Color(0x00ff00));
+		//panel.setBorder(BorderFactory.createLineBorder(new Color(0x777777)));
+		//panel.s
 	}
 
 	@Override
@@ -68,7 +74,7 @@ public class MainMenu extends Window {
 		learnWindow.addActionListener(
 				e -> {
 					stack.pop();
-					stack.push(new LearnByLJPTLevel(stack, frame));
+					stack.push(new PickMaterial(stack, frame));
 				}
 		);
 	}

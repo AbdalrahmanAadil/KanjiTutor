@@ -8,6 +8,12 @@ enum Level {
 	N1, N2, N3, N4, N5
 }
 
+enum Category {
+	VERBS, ADJ, ANIMALS, HUMAN_BODY,
+	 CITY, EVERYDAY, NATURE, NUMBERS,
+	 PEOPLE, PREPOSITIONS, TIME
+};
+
 public abstract class Window {
 	
 	StateStack stack;
@@ -22,6 +28,8 @@ public abstract class Window {
 		this.frame = frame;
 		frame.setLayout(layout);
 	}
+	
+
 	
 	protected abstract void createComponents();
 	protected abstract void addComponents();

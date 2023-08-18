@@ -1,6 +1,6 @@
 package app;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
@@ -13,15 +13,14 @@ public class App {
 		
 		frame = new JFrame();
 		frame.setTitle("Kanji Tutor");
-		frame.setSize(700, 500);
-		frame.setVisible(true);
-		frame.setLayout(new BorderLayout());
+		frame.setBounds(300, 150, 700, 500);
+		//frame.setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		
 		stack = new StateStack(frame);
 
-		stack.push(new MainMenu(stack, frame));
+		stack.push(new PickMaterial(stack, frame));
 	}
 	
 	public static void main(String[] args) {
@@ -29,7 +28,7 @@ public class App {
 		try {
 			new App();
 		} catch (Exception e) {
-			System.out.println(e.getStackTrace());
+			e.printStackTrace();
 		}
 	}
 }
