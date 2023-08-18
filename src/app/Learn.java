@@ -31,14 +31,12 @@ public class Learn extends Window {
 	private JPanel cardPanel;
 	private JPanel controlPanel;
 	
-	private Level level;
 	private String directory;
 	
-	public Learn(StateStack stack, JFrame frame, Level level, String directory) {
+	public Learn(StateStack stack, JFrame frame, String directory) {
 		// 3rd argument is layout
 		super(stack, frame, null);
 		
-		this.level = level;
 		this.directory = directory;
 		
 		currentCard = 0;
@@ -65,46 +63,10 @@ public class Learn extends Window {
 	
 	protected void loadCards() {
 		
-		String levelFolder = getLevel(level);
-		//String categoryStr = getCategory(category);
+		this.numOfCards = new File(directory).list().length;
 		
-		String dir = directory;
-		this.numOfCards = new File(dir).list().length;
-		//new File("").list
 		for(int i = 0; i < numOfCards; ++i) {
-			cards.add(new ImageIcon(dir + "/" + i + ".png"));
-		}
-	}
-
-	public static String getCategory(Category cat) {
-		switch (cat) {
-			case VERBS: return "verbs";
-			case ADJ: return "adj";
-			case ANIMALS: return "animals";
-			case HUMAN_BODY: return "human_body";
-			case CITY: return "city";
-			case EVERYDAY: return "everyday";
-			case NATURE: return "nature";
-			case NUMBERS: return "numbers";
-			case PEOPLE: return "people";
-			case PREPOSITIONS: return "prepositions";
-			case TIME: return "time";
-		default:
-			throw new IllegalArgumentException("Unexpected category: " + cat.name());
-		}
-	}
-
-	private String getLevel(Level level) {
-		switch (level) {
-		
-			case N5: return "N5";
-			case N4: return "N4";
-			case N3: return "N3";
-			case N2: return "N2";
-			case N1: return "N1";
-		
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + level);
+			cards.add(new ImageIcon(directory + "/" + i + ".png"));
 		}
 	}
 
