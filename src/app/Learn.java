@@ -16,11 +16,9 @@ import javax.swing.JPanel;
 public class Learn extends Window {
 	
 	private ArrayList<ImageIcon> cards = new ArrayList<>();
-	private int numOfCards;
-	
+
 	private int currentCard;
 	private JLabel label;
-
 	
 	private JButton nextButton;
 	private JButton prevButton;
@@ -32,6 +30,11 @@ public class Learn extends Window {
 	private JPanel controlPanel;
 	
 	private String directory;
+	
+	private final int CARD_IMAGE_WIDTH = 576;
+	private final int CARD_IMAGE_HEIGHT = 180;
+	
+	File[] files;
 	
 	public Learn(StateStack stack, JFrame frame, String directory) {
 		// 3rd argument is layout
@@ -63,11 +66,10 @@ public class Learn extends Window {
 	
 	protected void loadCards() {
 		
-		this.numOfCards = new File(directory).list().length;
+		files = new File(directory).listFiles();
 		
-		for(int i = 0; i < numOfCards; ++i) {
-			cards.add(new ImageIcon(directory + "/" + i + ".png"));
-		}
+		for (File file : files)
+			cards.add(new ImageIcon(file.getPath()));
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class Learn extends Window {
 	
 	private void updateCard() {
 		label.setIcon(cards.get(currentCard));
-		label.setText( (currentCard+1) + " / " + numOfCards);
+		label.setText( (currentCard+1) + " / " + files.length);
 	}
 	
 	@Override
@@ -148,17 +150,20 @@ public class Learn extends Window {
 		
 		addActionListeners();
 		
-		label.setText( (currentCard+1) + " / " + numOfCards);
+		label.setText( (currentCard+1) + " / " + files.length);
 		label.setIcon(cards.get(currentCard));
 		label.setHorizontalTextPosition(JLabel.CENTER);
 		label.setVerticalTextPosition(JLabel.TOP);
 		label.setForeground(new Color(0xFFFFFF));
 		label.setFont(new Font("Arial", Font.PLAIN, 30));	
 
-		label.setBounds(frame.getWidth() / 2 - 75, cardPanel.getHeight() / 2 - 75, 180, 180);
+		int startX = (frame.getWidth() - label.getIcon().getIconWidth()) >> 1;
+		int startY = cardPanel.getHeight() / 2 - 75;
+		
+		label.setBounds(startX, startY, CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
 		
 		int controlsBtnsTotalWidth = 200;
-		int halfWidth = (controlPanel.getWidth() / 2) - (controlsBtnsTotalWidth / 2);
+		int halfWidth = (controlPanel.getWidth() - controlsBtnsTotalWidth) >> 1;
 		int marginTop = 30;
 		prevButton.setBounds(halfWidth, marginTop, 100, 50);
 		nextButton.setBounds(halfWidth + 100, marginTop, 100, 50);

@@ -31,6 +31,10 @@ public class PickMaterial extends Window {
 		frame.setVisible(true);
 	}
 	
+	public void name() {
+		
+	}
+	
 	@Override
 	protected void createComponents() {
 		
@@ -60,12 +64,6 @@ public class PickMaterial extends Window {
 		
 		for (String x : firstComboList) {
 			catCombo.addItem(x);
-		}
-		
-		String[] xx = secondComboList.get(0);
-		
-		for (String x : xx) {
-			subcatCombo.addItem(x);
 		}
 		
 		catCombo.setBounds(220, 100, 100, 50);
